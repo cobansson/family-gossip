@@ -61,9 +61,7 @@ function snapshot(snapshot) {
       div2.setAttribute("class", "like-and-count-section");
 
       const i = document.createElement("i");
-      isLiked
-        ? i.setAttribute("class", "fa-solid fa-heart red")
-        : i.setAttribute("class", "fa-solid fa-heart");
+      i.setAttribute("class", "fa-solid fa-heart");
       i.setAttribute("id", `${message[0]}`);
       i.addEventListener("click", () => {
         isLiked = !isLiked;
