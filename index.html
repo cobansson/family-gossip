@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Family Gossip</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Family Gossip">
+    <meta name="keywords" content="Chat, Gossip">
+    <meta name="author" content="Engin Barbaros Cobanoglu">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png" />
+    <link rel="stylesheet" href="index.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+
+  <body>
+    <header>
+      <img src="images/Freddie.png" />
+      <h1>Family Gossip</h1>
+    </header>
+
+    <main>
+      <section>
+        <form id="form-message">
+          <textarea
+            id="message-textarea"
+            placeholder="Write here what you don't dare to say"
+            required
+          ></textarea>
+          <div class="input-container">
+            <input type="text" id="sender-input" placeholder="From" required />
+            <input type="text" id="receiver-input" placeholder="To" required />
+          </div>
+          <button type="submit">Publish</button>
+        </form>
+      </section>
+
+      <section>
+        <h1>- Confessions -</h1>
+        <div>
+          <ul id="message-ul"></ul>
+        </div>
+      </section>
+    </main>
+    <script type="module" src="index.js"></script>
+  </body>
+</html>
