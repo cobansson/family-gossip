@@ -61,16 +61,20 @@ function snapshot(snapshot) {
       div2.setAttribute("class", "like-and-count-section");
 
       const i = document.createElement("i");
-      isLiked ? i.setAttribute("class", "fa-solid fa-heart red") : i.setAttribute("class", "fa-solid fa-heart")
+      isLiked
+        ? i.setAttribute("class", "fa-solid fa-heart red")
+        : i.setAttribute("class", "fa-solid fa-heart");
       i.setAttribute("id", `${message[0]}`);
       i.addEventListener("click", () => {
         isLiked = !isLiked;
-        const likes = isLiked ? message[1].countLikes + 1 : message[1].countLikes - 1;
+        const likes = isLiked
+          ? message[1].countLikes + 1
+          : message[1].countLikes - 1;
         const target = ref(database, `messages/${message[0]}`);
         update(target, {
           ...message,
-          countLikes: likes
-        })
+          countLikes: likes,
+        });
       });
 
       const p2 = document.createElement("p");
