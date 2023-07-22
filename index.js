@@ -24,6 +24,8 @@ const senderInputEl = document.getElementById("sender-input");
 const receiverInputEl = document.getElementById("receiver-input");
 const ulEl = document.getElementById("message-ul");
 
+let isLiked = false;
+
 function sendDataToDatabase(e) {
   e.preventDefault();
 
@@ -31,7 +33,6 @@ function sendDataToDatabase(e) {
     nameFrom: senderInputEl.value,
     nameTo: receiverInputEl.value,
     message: textareaEl.value,
-    isLiked: false,
     countLikes: 0,
   };
 
@@ -60,14 +61,14 @@ function snapshot(snapshot) {
       div2.setAttribute("class", "like-and-count-section");
 
       const i = document.createElement("i");
-      message[1].isLiked ? i.setAttribute("class", "fa-solid fa-heart red") : i.setAttribute("class", "fa-solid fa-heart")
+      isLiked ? i.setAttribute("class", "fa-solid fa-heart red") : i.setAttribute("class", "fa-solid fa-heart")
       i.setAttribute("id", `${message[0]}`);
       i.addEventListener("click", () => {
-        const likes = message[1].isLiked ? message[1].countLikes - 1 : message[1].countLikes + 1;
+        isLiked = !isLiked;
+        const likes = isLiked ? message[1].countLikes + 1 : message[1].countLikes - 1;
         const target = ref(database, `messages/${message[0]}`);
         update(target, {
           ...message,
-          isLiked: !message[1].isLiked,
           countLikes: likes
         })
       });
