@@ -76,12 +76,10 @@ function renderList(messageArr) {
     const targetObj = ref(database, `messages/${message[0]}`);
     i.setAttribute("class", "fa-solid fa-heart");
     i.setAttribute("data-id", `${message[0]}`);
-    i.addEventListener("click", (e) =>
-    {
+    i.addEventListener("click", (e) => {
       updateDataInDatabase(message[1].countLikes, targetObj);
-      e.target.dataset.id && updateColorOfHeartLogo(e.target.dataset.id);
-    }
-    );
+      updateColorOfHeartLogo(e.target.dataset.id);
+    });
 
     const p2 = document.createElement("p");
     p2.setAttribute("class", "count-likes");
@@ -96,7 +94,7 @@ function renderList(messageArr) {
     h3To.textContent = `To ${message[1].nameTo}`;
     p1.textContent = message[1].message;
     li.append(h3From, p1, div1);
-    
+
     return li;
   });
 }
@@ -110,7 +108,8 @@ function updateDataInDatabase(prevCountLikes, target) {
 }
 
 function updateColorOfHeartLogo(targetObjId) {
-  console.log(targetObjId);
+  const targetElement = document.getElementById(targetObjId);
+  targetElement && targetElement.classList.toggle("red");
 }
 
 getDataFromDatabase();
