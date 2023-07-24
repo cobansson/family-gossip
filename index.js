@@ -49,48 +49,7 @@ function snapshot(snapshot) {
   if (messageExists) {
     ulEl.innerHTML = "";
     const messageObj = Object.entries(snapshot.val()).reverse();
-    const messages = messageObj.map((message) => {
-      const h3From = document.createElement("h3");
-      const p1 = document.createElement("p");
-      p1.setAttribute("class", "message-text");
-
-      const div1 = document.createElement("div");
-      div1.setAttribute("class", "name-like-and-count-section");
-
-      const div2 = document.createElement("div");
-      div2.setAttribute("class", "like-and-count-section");
-
-      const i = document.createElement("i");
-      i.setAttribute("class", "fa-solid fa-heart");
-      i.setAttribute("id", `${message[0]}`);
-      i.addEventListener("click", () => {
-        isLiked = !isLiked;
-        const likes = isLiked
-          ? message[1].countLikes + 1
-          : message[1].countLikes - 1;
-        const target = ref(database, `messages/${message[0]}`);
-        update(target, {
-          ...message,
-          countLikes: likes,
-        });
-      });
-
-      const p2 = document.createElement("p");
-      p2.setAttribute("class", "count-likes");
-      p2.textContent = message[1].countLikes;
-      div2.append(i, p2);
-
-      const h3To = document.createElement("h3");
-      div1.append(h3To, div2);
-
-      const li = document.createElement("li");
-      h3From.textContent = `From ${message[1].nameFrom}`;
-      h3To.textContent = `To ${message[1].nameTo}`;
-      p1.textContent = message[1].message;
-      li.append(h3From, p1, div1);
-
-      return li;
-    });
+    const messages = renderList(messageObj);
     ulEl.append(...messages);
   } else {
     ulEl.innerHTML = "";
@@ -99,6 +58,59 @@ function snapshot(snapshot) {
     h4.textContent = "There is no gossip here";
     ulEl.append(h4);
   }
+}
+
+function renderList(messageArr) {
+  return messageArr.map((message) => {
+    const h3From = document.createElement("h3");
+    const p1 = document.createElement("p");
+    p1.setAttribute("class", "message-text");
+
+    const div1 = document.createElement("div");
+    div1.setAttribute("class", "name-like-and-count-section");
+
+    const div2 = document.createElement("div");
+    div2.setAttribute("class", "like-and-count-section");
+
+    const i = document.createElement("i");
+    const targetObj = ref(database, `messages/${message[0]}`);
+    i.setAttribute("class", "fa-solid fa-heart");
+    i.setAttribute("data-id", `${message[0]}`);
+    i.addEventListener("click", (e) =>
+    {
+      updateDataInDatabase(message[1].countLikes, targetObj);
+      e.target.dataset.id && updateColorOfHeartLogo(e.target.dataset.id);
+    }
+    );
+
+    const p2 = document.createElement("p");
+    p2.setAttribute("class", "count-likes");
+    p2.textContent = message[1].countLikes;
+    div2.append(i, p2);
+
+    const h3To = document.createElement("h3");
+    div1.append(h3To, div2);
+
+    const li = document.createElement("li");
+    h3From.textContent = `From ${message[1].nameFrom}`;
+    h3To.textContent = `To ${message[1].nameTo}`;
+    p1.textContent = message[1].message;
+    li.append(h3From, p1, div1);
+    
+    return li;
+  });
+}
+
+function updateDataInDatabase(prevCountLikes, target) {
+  isLiked = !isLiked;
+  const likes = isLiked ? prevCountLikes + 1 : prevCountLikes - 1;
+  update(target, {
+    countLikes: likes,
+  });
+}
+
+function updateColorOfHeartLogo(targetObjId) {
+  console.log(targetObjId);
 }
 
 getDataFromDatabase();
