@@ -78,7 +78,6 @@ function renderList(messageArr) {
     i.setAttribute("data-id", `${message[0]}`);
     i.addEventListener("click", (e) => {
       updateDataInDatabase(message[1].countLikes, targetObj);
-      updateColorOfHeartLogo(e.target.dataset.id);
     });
 
     const p2 = document.createElement("p");
@@ -107,9 +106,5 @@ function updateDataInDatabase(prevCountLikes, target) {
   });
 }
 
-function updateColorOfHeartLogo(targetObjId) {
-  const targetElement = document.getElementById(targetObjId);
-  targetElement && targetElement.classList.toggle("red");
-}
 
 getDataFromDatabase();
