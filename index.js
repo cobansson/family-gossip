@@ -74,7 +74,7 @@ function renderList(messageArr) {
 
     const i = document.createElement("i");
     const targetObj = ref(database, `messages/${message[0]}`);
-    i.setAttribute("class", "fa-solid fa-heart red");
+    i.setAttribute("class", "fa-solid fa-heart");
     i.setAttribute("data-id", `${message[0]}`);
     i.addEventListener("click", (e) => {
       updateDataInDatabase(message[1].countLikes, targetObj);
